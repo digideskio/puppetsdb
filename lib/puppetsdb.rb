@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pathname'
 require 'base64'
 require 'rubygems'
 require 'aws'

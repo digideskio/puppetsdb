@@ -3,7 +3,6 @@
 require 'rubygems'
 require 'subcommand'
 require 'puppetsdb'
-require 'pp'
 
 include Subcommands
 
