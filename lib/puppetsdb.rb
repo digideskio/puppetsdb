@@ -11,13 +11,17 @@ module PuppetSDB
     attr_accessor :simpledb, :domain
      
     def initialize(domain=nil)
-      cfg_file_paths = ['/etc/puppetsdb/config.yaml', '~/.puppetsdb/config.yaml']
+      cfg_file_paths = ['/etc/puppetsdb/config.yml']
+      if ENV['HOME']
+        cfg_file_paths << '~/.puppetsdb/config.yml'
+      else
+        cfg_file_paths << '~puppet/.puppetsdb/config.yml'
+      end
       conf = {}
       cfg_file_paths.each do |file|
         file = File.expand_path(file)
         next unless File.exists?(file)
-        fd_config = File.new(file)
-        conf.merge!(YAML.load(fd_config))
+        conf.merge!(YAML.load(File.read(file)))
       end
 
       AWS.config(conf['aws'])
@@ -28,6 +32,18 @@ module PuppetSDB
 
     def list_domains
       @simpledb.domains.collect(&:name)
+    end
+
+    def create_domain(domain_name)
+      @simpledb.domains.create(domain_name)
+    end
+
+    def delete_domain(domain_name, with_items=false)
+      if with_items
+        @simpledb.domains[domain_name].delete!
+      else
+        @simpledb.domains[domain_name].delete
+      end
     end
 
     def list_items
