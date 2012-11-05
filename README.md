@@ -105,6 +105,10 @@ The STDIN method of updating a node can be used to copy a node's configuration t
 
     # /usr/bin/puppetsdb get source_node | /usr/bin/puppetsdb set dest_node
 
+## To Do
+
+* Tests
+
 ## Bugs
 
 * This gem was not thoroughly tested. More testing is in progress.
