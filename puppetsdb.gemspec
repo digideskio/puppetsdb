@@ -4,14 +4,13 @@ require "puppetsdb/version"
 Gem::Specification.new do |s|
   s.name        = 'puppetsdb'
   s.version     = PuppetSDB::VERSION
-  s.date        = '2012-10-26'
   s.summary     = "Puppet ENC script stored against Amazon's SimpleDB"
   s.description = "A simple interface to Puppet's ENC stored on Amazon's SimpleDB"
   s.authors     = ["Brian Wong"]
   s.email       = 'bwong114@gmail.com'
   s.files       = Dir['lib/puppetsdb.rb'] + Dir['lib/puppetsdb/*.rb'] + Dir["bin/puppetsdb"]
   s.executables << 'puppetsdb'
-  s.homepage    = 'http://rubygems.org/gems/puppetsdb'
+  s.homepage    = 'https://github.com/bwong114/puppetsdb'
   s.add_runtime_dependency 'subcommand'
   s.add_runtime_dependency 'aws-sdk'
 end
