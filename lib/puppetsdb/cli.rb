@@ -11,7 +11,7 @@ module PuppetSDB
     class << self
       COL_WIDTH = 40
       def ask_confirm(question)
-        print "Are you sure you want to delete this node? (yes/[no]) "
+        print question
         answer = $stdin.gets.chomp
         accepted_confirms = ['y','yes']
         accepted_confirms.include?(answer.downcase)
@@ -87,6 +87,7 @@ module PuppetSDB
             puppet_enc.create_domain(domain_name)
             puts "Domain create successfully"
           when "deletedomain"
+            (puts deletedomain_cmd.call.help; exit 1) if ARGV.empty?
             domain_name = ARGV.shift
             unless options[:deletedomain_force]
               (puts "Cancelled..."; exit 0) unless ask_confirm("Are you sure you want to delete this domain? (yes/[no]) ")
