@@ -7,7 +7,7 @@ module PuppetSDB
   class PuppetSDB
     attr_accessor :simpledb, :domain
      
-    def initialize(domain=nil)
+    def initialize(options={})
       cfg_file_paths = ['/etc/puppetsdb/config.yml']
       if ENV['HOME']
         cfg_file_paths << '~/.puppetsdb/config.yml'
@@ -22,7 +22,7 @@ module PuppetSDB
       end
 
       AWS.config(conf['aws'])
-      domain ||= conf['puppetsdb']['domain']
+      domain = options[:domain] || conf['puppetsdb']['domain']
       @simpledb = AWS::SimpleDB.new
       @domain = domain
     end
