@@ -108,7 +108,6 @@ The STDIN method of updating a node can be used to copy a node's configuration t
 ## To Do
 
 * Tests
-* Dynamic Registration using SNS and SQS as suggested in the [AWS Architecture Class Manual](http://awsu-arch.s3.amazonaws.com/student-manual/index.html)
 
 ## Bugs
 
