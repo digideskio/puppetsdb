@@ -14,15 +14,19 @@ module PuppetSDB
       else
         cfg_file_paths << '~puppet/.puppetsdb/config.yml'
       end
-      conf = {}
+      final_conf = {}
       cfg_file_paths.each do |file|
         file = File.expand_path(file)
         next unless File.exists?(file)
-        conf.merge!(YAML.load(File.read(file)))
+        file_conf = YAML.load(File.read(file))
+        file_conf.keys.each do |tlevel_key|
+          final_conf[tlevel_key] ||= {}
+          final_conf[tlevel_key].merge!(file_conf[tlevel_key]) 
+        end
       end
 
-      AWS.config(conf['aws'])
-      domain = options[:domain] || conf['puppetsdb']['domain']
+      AWS.config(final_conf['aws'])
+      domain = options[:domain] || final_conf['puppetsdb']['domain']
       @simpledb = AWS::SimpleDB.new
       @domain = domain
     end
